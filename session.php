@@ -5,8 +5,4 @@ if( session_status() == PHP_SESSION_NONE ){
 }
 
 
-
-
-
-echo "this is updated";
 ?>
