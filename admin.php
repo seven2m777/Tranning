@@ -20,5 +20,6 @@ $stmt->execute([
 echo "Admin user created successfully!";
 echo "Email: $email\n";
 echo "Password: admin123\n";
+uggjgkukkuahflekhfeljflejlfljfnljejlw
 
 ?>
