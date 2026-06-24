@@ -18,5 +18,6 @@ $stmt->execute([
 ]);
 
 echo "Admin user created successfully!";
+echo "Email: $email\n";
 
 ?>
