@@ -1,7 +1,7 @@
 <?php
     require_once "../includes/auth-check.php";
     require_once "../includes/header.php";
-    require_once "../includes/sidebar.php";
+    require_once __DIR__ . "/../includes/sidebars.php";
 ?>
 
 <main>
