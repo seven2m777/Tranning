@@ -1,8 +1,8 @@
 <?php
 
-require_once "../includes/session.php";
-require_once "../config/database.php";
-require_once "../includes/helpers.php";
+require_once __DIR__ . "/../session.php";
+require_once __DIR__ . "/../config/database.php";
+require_once __DIR__ . "/../includes/helpers.php";
 
 if (!isPostRequest()) {
     redirect("login.php");

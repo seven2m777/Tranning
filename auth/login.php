@@ -1,7 +1,7 @@
 <?php
 
-require_once "../includes/session.php";
-require_once "../includes/helpers.php";
+require_once __DIR__ . "/../session.php";
+require_once __DIR__ . "/../includes/helpers.php";
 
 if (isset($_SESSION["user_id"])) {
     redirect("../dashboard/index.php");
