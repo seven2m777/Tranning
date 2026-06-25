@@ -1,14 +1,13 @@
+<?php
 
- 
-
-
-
-function showError(string $message): void
+function showError(string $message): string
 {
-    return "<p style='color: red;'>$message</p>";
+    return "<div class='alert alert-danger'>$message</div>";
 }
 
 function isPostRequest(): bool
 {
     return $_SERVER['REQUEST_METHOD'] === 'POST';
 }
+
+?>
