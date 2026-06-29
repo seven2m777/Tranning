@@ -1,10 +1,15 @@
+<?php 
+
+require_once __DIR__ . "/../session.php";
+
+?>
 <nav>
     <ul>
         <li>
             <a href="/dashboard/index.php">Dashboard</a>
         </li>
 
-        <?php if ($_SESSION["role_name"] === "Admin"): ?>
+        <?php if ($_SESSION["role_name"] === "admin"): ?>
             <li>
                 <a href="/users/index.php">User Management</a>
             </li>
@@ -35,7 +40,7 @@
             <a href="/returns/index.php">Return Book</a>
         </li>
 
-        <?php if ($_SESSION["role_name"] === "Admin"): ?>
+        <?php if ($_SESSION["role_name"] === "admin"): ?>
             <li>
                 <a href="/reports/index.php">Reports</a>
             </li>

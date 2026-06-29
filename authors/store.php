@@ -13,11 +13,11 @@ if (!isPostRequest()) {
 }
 
 $name = cleanInputData($_POST["name"] ?? "");
-$description = cleanInputData($_POST["description"] ?? "");
+$bio = cleanInputData($_POST["bio"] ?? "");
 $status = cleanInputData($_POST["status"] ?? "active");
 
 if (empty($name)) {
-    $_SESSION["error"] = "Category name is required.";
+    $_SESSION["error"] = "Author name is required.";
     redirect("create.php");
 }
 
@@ -26,31 +26,38 @@ if (!in_array($status, ["active", "inactive"])) {
     redirect("create.php");
 }
 
-$checkSql = "SELECT id FROM categories WHERE LOWER(name) = LOWER(:name) AND is_deleted = FALSE";
+$checkSql = "
+    SELECT id
+    FROM authors
+    WHERE LOWER(name) = LOWER(:name)
+    AND is_deleted = FALSE
+";
+
 $checkStmt = $pdo->prepare($checkSql);
 $checkStmt->execute([
     "name" => $name
 ]);
 
-$existingCategory = $checkStmt->fetch();
+$existingAuthor = $checkStmt->fetch();
 
-if ($existingCategory) {
-    $_SESSION["error"] = "Category already exists.";
+if ($existingAuthor) {
+    $_SESSION["error"] = "Author already exists.";
     redirect("create.php");
 }
 
 $sql = "
-    INSERT INTO categories (name, description, status)
-    VALUES (:name, :description, :status)
+    INSERT INTO authors (name, bio, status)
+    VALUES (:name, :bio, :status)
 ";
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     "name" => $name,
-    "description" => $description,
+    "bio" => $bio,
     "status" => $status
 ]);
 
-$_SESSION["success"] = "Category created successfully.";
+$_SESSION["success"] = "Author created successfully.";
+
 redirect("index.php");

@@ -1,9 +1,9 @@
 <?php
-require_once "../config/database.php";
-require_once "../includes/auth-check.php";
-require_once "../includes/header.php";
-require_once __DIR__ . "/../includes/sidebars.php";
 
+require_once "../includes/auth-check.php";
+require_once "../config/database.php"; 
+require_once "../includes/header.php";
+require_once "../includes/sidebars.php";
 
 $totalBooksStmt = $pdo->prepare("SELECT COUNT(*) AS total FROM books WHERE is_deleted = FALSE");
 $totalBooksStmt->execute();
@@ -20,17 +20,19 @@ $totalIssuedBooks = $totalIssuedStmt->fetch()["total"];
 $totalCategoriesStmt = $pdo->prepare("SELECT COUNT(*) AS total FROM categories WHERE is_deleted = FALSE");
 $totalCategoriesStmt->execute();
 $totalCategories = $totalCategoriesStmt->fetch()["total"];
+
+
 ?>
 
 <main>
     <h1>Dashboard</h1>
 
     <p>
-        Welcome, <?php echo htmlspecialchars($_SESSION["full_name"]); ?>.
+        Welcome, <?php echo htmlspecialchars($_SESSION["full_name"] ?? ""); ?>.
     </p>
 
     <p>
-        Your role is: <?php echo htmlspecialchars($_SESSION["role_name"]); ?>.
+        Your role is: <?php echo htmlspecialchars($_SESSION["role_name"] ?? ""); ?>.
     </p>
 
     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
@@ -57,3 +59,5 @@ $totalCategories = $totalCategoriesStmt->fetch()["total"];
 
     </div>
 </main>
+
+<?php require_once "../includes/footer.php"; ?>
