@@ -1,59 +1,59 @@
 <?php
+require_once "../config/database.php";
 require_once "../includes/auth-check.php";
 require_once "../includes/header.php";
 require_once __DIR__ . "/../includes/sidebars.php";
+
+
+$totalBooksStmt = $pdo->prepare("SELECT COUNT(*) AS total FROM books WHERE is_deleted = FALSE");
+$totalBooksStmt->execute();
+$totalBooks = $totalBooksStmt->fetch()["total"];
+
+$totalMembersStmt = $pdo->prepare("SELECT COUNT(*) AS total FROM members WHERE is_deleted = FALSE");
+$totalMembersStmt->execute();
+$totalMembers = $totalMembersStmt->fetch()["total"];
+
+$totalIssuedStmt = $pdo->prepare("SELECT COUNT(*) AS total FROM book_issues WHERE status = 'issued'");
+$totalIssuedStmt->execute();
+$totalIssuedBooks = $totalIssuedStmt->fetch()["total"];
+
+$totalCategoriesStmt = $pdo->prepare("SELECT COUNT(*) AS total FROM categories WHERE is_deleted = FALSE");
+$totalCategoriesStmt->execute();
+$totalCategories = $totalCategoriesStmt->fetch()["total"];
 ?>
 
 <main>
-    <div class="dashboard-header">
-        <h1>Dashboard</h1>
-        <p>Welcome to the Library Management System.</p>
-    </div>
+    <h1>Dashboard</h1>
 
-    <div class="stats">
-        <div class="card">
+    <p>
+        Welcome, <?php echo htmlspecialchars($_SESSION["full_name"]); ?>.
+    </p>
+
+    <p>
+        Your role is: <?php echo htmlspecialchars($_SESSION["role_name"]); ?>.
+    </p>
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+
+        <div style="border: 1px solid #ccc; padding: 20px; width: 200px;">
             <h3>Total Books</h3>
-            <p>120</p>
+            <p><?php echo $totalBooks; ?></p>
         </div>
 
-        <div class="card">
+        <div style="border: 1px solid #ccc; padding: 20px; width: 200px;">
             <h3>Total Members</h3>
-            <p>45</p>
+            <p><?php echo $totalMembers; ?></p>
         </div>
 
-        <div class="card">
+        <div style="border: 1px solid #ccc; padding: 20px; width: 200px;">
             <h3>Issued Books</h3>
-            <p>18</p>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-header">
-            Recent Activities
+            <p><?php echo $totalIssuedBooks; ?></p>
         </div>
 
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Activity</th>
-            </tr>
+        <div style="border: 1px solid #ccc; padding: 20px; width: 200px;">
+            <h3>Categories</h3>
+            <p><?php echo $totalCategories; ?></p>
+        </div>
 
-            <tr>
-                <td>2026-06-25</td>
-                <td>Book "PHP Basics" issued.</td>
-            </tr>
-
-            <tr>
-                <td>2026-06-24</td>
-                <td>New member registered.</td>
-            </tr>
-
-            <tr>
-                <td>2026-06-23</td>
-                <td>Book returned.</td>
-            </tr>
-        </table>
     </div>
 </main>
-
-<?php require_once "../includes/footer.php"; ?>
